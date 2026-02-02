@@ -110,7 +110,7 @@ export function PositiveFlow({ config, onBack, onCopyAndRedirect }: PositiveFlow
       </div>
 
       <div className="bg-gradient-to-br from-blue-50 to-blue-100 border-2 border-blue-200 rounded-2xl p-4 sm:p-6 mb-8 text-left">
-        <p className="text-xs font-semibold text-gray-600 mb-3 uppercase tracking-wide">Előnézet (szabadon szerkeszthető):</p>
+        <p className="text-xs font-semibold text-gray-600 mb-3 uppercase tracking-wide">Előnézet:</p>
         <textarea
           value={reviewText}
           onChange={(e) => {
@@ -118,7 +118,7 @@ export function PositiveFlow({ config, onBack, onCopyAndRedirect }: PositiveFlow
             setReviewText(next);
             setHasUserEdited(next.trim().length > 0);
           }}
-          className="w-full min-h-[96px] sm:min-h-[120px] bg-transparent border border-blue-200 rounded-xl px-3 py-2 text-sm sm:text-base text-gray-900 leading-relaxed outline-none focus:ring-2 focus:ring-blue-400 focus:border-blue-400 resize-vertical"
+          className="w-full min-h-[96px] sm:min-h-[120px] bg-transparent rounded-xl px-3 py-2 text-sm sm:text-base text-gray-900 leading-relaxed outline-none focus:ring-2 focus:ring-blue-400 resize-vertical"
         />
       </div>
 
