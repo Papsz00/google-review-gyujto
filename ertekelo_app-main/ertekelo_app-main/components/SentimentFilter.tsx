@@ -28,20 +28,20 @@ export function SentimentFilter({
 
   return (
     <div className="bg-white rounded-3xl shadow-2xl px-6 py-8 sm:px-10 sm:py-12 text-center animate-fadeIn">
-      <div className="mb-6 sm:mb-8">
+      <div className="mb-8 sm:mb-10">
         <img
           src={config.logoUrl}
           alt={config.companyName}
-          className="w-24 h-24 sm:w-28 sm:h-28 mx-auto rounded-full object-cover mb-6 ring-4 ring-blue-100 shadow-lg"
+          className="w-28 h-28 sm:w-32 sm:h-32 mx-auto rounded-full object-cover mb-7 sm:mb-8 ring-4 ring-blue-100 shadow-lg"
         />
         <h2 className="text-3xl sm:text-4xl font-bold text-gray-900">{config.companyName}</h2>
       </div>
 
-      <h1 className="text-2xl sm:text-3xl font-bold text-gray-900 mb-3 sm:mb-4 leading-tight">
+      <h1 className="text-2xl sm:text-3xl font-bold text-gray-900 mb-4 sm:mb-5 leading-tight">
         {ratingQuestion}
       </h1>
 
-      <p className="text-gray-600 mb-8 sm:mb-10 text-base sm:text-lg">Az Ön visszajelzése fontos számunkra</p>
+      <p className="text-gray-600 mb-9 sm:mb-12 text-base sm:text-lg">Az Ön visszajelzése fontos számunkra</p>
 
       <div className="flex justify-center gap-2.5 sm:gap-3 mb-4 sm:mb-6">
         {[1, 2, 3, 4, 5].map((star) => (

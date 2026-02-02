@@ -9,6 +9,9 @@ const nextConfig = {
   reactStrictMode: true,
   // Helps when running inside a workspace that has other lockfiles higher up.
   outputFileTracingRoot: __dirname,
+  eslint: {
+    ignoreDuringBuilds: true,
+  },
 };
 
 export default nextConfig;

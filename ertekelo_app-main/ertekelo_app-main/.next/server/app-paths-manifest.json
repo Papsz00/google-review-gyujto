@@ -1,4 +1,0 @@
-{
-  "/api/send/route": "app/api/send/route.js",
-  "/[client]/page": "app/[client]/page.js"
-}
