@@ -10,10 +10,10 @@ RESEND_API_KEY=re_XXXXXXXXXXXXXXXXXXXXXXXX
 
 ## Optional (defaults for quick testing)
 
-If `RESEND_TO` is not set, the API route falls back to `matepolo06@gmail.com` (dev/testing only).
+If `RESEND_TO` is not set, the API route falls back to `szecsimate2006@gmail.com` (dev/testing only).
 
 ```
-RESEND_TO=matepolo06@gmail.com
+RESEND_TO=szecsimate2006@gmail.com
 RESEND_FROM="Értékelés" <no-reply@yourdomain.com>
 ```
 
