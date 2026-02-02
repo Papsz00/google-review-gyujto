@@ -9,7 +9,7 @@ export type ClientEntry = {
 export const clientEntries: ClientEntry[] = [
   {
     slug: 'dr-kovacs',
-    emailTo: 'info@drkovacs.hu',
+    emailTo: 'szecsimate@student.elte.hu',
     config: {
       isClientActive: true,
       companyName: 'Dr. Kovács Fogászat',
@@ -33,7 +33,7 @@ export const clientEntries: ClientEntry[] = [
   },
   {
     slug: 'happy-dent',
-    emailTo: 'matepolo06@gmail.com',
+    emailTo: 'szecsimate@student.elte.hu',
     config: {
       isClientActive: true,
       companyName: 'HappyDent Fogászat',
