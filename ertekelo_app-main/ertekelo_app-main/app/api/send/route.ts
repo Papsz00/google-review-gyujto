@@ -20,6 +20,7 @@ export async function POST(req: Request) {
   const resendApiKey = process.env.RESEND_API_KEY;
   const defaultResendTo = process.env.RESEND_TO || 'matepolo06@gmail.com';
   const resendFrom = process.env.RESEND_FROM || '"Értékelés" <no-reply@example.com>';
+  const isDemoMode = process.env.DEMO_MODE === 'true' || process.env.NEXT_PUBLIC_DEMO_MODE === 'true';
 
   let body: unknown;
   try {
@@ -66,6 +67,14 @@ export async function POST(req: Request) {
   lines.push(`Név: ${name || '-'}`);
   lines.push(`Telefon: ${phone || '-'}`);
   lines.push(`Email: ${email || '-'}`);
+
+  if (isDemoMode) {
+    return NextResponse.json({
+      ok: true,
+      demo: true,
+      message: `Címzett: ${resendTo}\nFeladó: ${resendFrom}\nTárgy: ${subject}\n\n${lines.join('\n')}`,
+    });
+  }
 
   // If no API key is configured, simulate success so the UI flow can be tested locally.
   if (!resendApiKey) {

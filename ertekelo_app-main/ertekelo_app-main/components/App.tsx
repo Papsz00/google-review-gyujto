@@ -24,19 +24,27 @@ export function App({ config, clientSlug }: { config: ReviewConfig; clientSlug: 
   const [selectedRating, setSelectedRating] = useState<number | null>(null);
   const [alreadyVotedToday, setAlreadyVotedToday] = useState(false);
   const [submitError, setSubmitError] = useState<string | null>(null);
+  const [successMessage, setSuccessMessage] = useState<string | null>(null);
+
+  const isDemoMode = process.env.NEXT_PUBLIC_DEMO_MODE === 'true';
 
   const isBlocked = useMemo(() => alreadyVotedToday, [alreadyVotedToday]);
 
   useEffect(() => {
+    if (isDemoMode) {
+      setAlreadyVotedToday(false);
+      return;
+    }
     try {
       const last = window.localStorage.getItem(voteKey(clientSlug));
       setAlreadyVotedToday(last === todayStamp());
     } catch {
       // ignore
     }
-  }, [clientSlug]);
+  }, [clientSlug, isDemoMode]);
 
   const markVotedToday = () => {
+    if (isDemoMode) return;
     try {
       window.localStorage.setItem(voteKey(clientSlug), todayStamp());
       setAlreadyVotedToday(true);
@@ -51,6 +59,7 @@ export function App({ config, clientSlug }: { config: ReviewConfig; clientSlug: 
       setView('rating');
       setSelectedRating(null);
       setSubmitError(null);
+      setSuccessMessage(null);
     }, 5000);
     return () => window.clearTimeout(t);
   }, [view]);
@@ -61,6 +70,7 @@ export function App({ config, clientSlug }: { config: ReviewConfig; clientSlug: 
 
   const handleRatingSelect = (rating: number) => {
     setSubmitError(null);
+    setSuccessMessage(null);
 
     setSelectedRating(rating);
     setView(rating <= 3 ? 'negative' : 'positive');
@@ -70,6 +80,7 @@ export function App({ config, clientSlug }: { config: ReviewConfig; clientSlug: 
     setView('rating');
     setSelectedRating(null);
     setSubmitError(null);
+    setSuccessMessage(null);
   };
 
   const handleSubmitNegative = async (submission: NegativeSubmission) => {
@@ -96,9 +107,22 @@ export function App({ config, clientSlug }: { config: ReviewConfig; clientSlug: 
       body: JSON.stringify(payload),
     });
 
+    let data: any = null;
+    try {
+      data = await res.json();
+    } catch {
+      data = null;
+    }
+
     if (!res.ok) {
       setSubmitError('Hiba történt a küldés során. Kérjük próbáld újra.');
       return;
+    }
+
+    if (data && typeof data.message === 'string' && data.message.trim().length > 0) {
+      setSuccessMessage(data.message);
+    } else {
+      setSuccessMessage(null);
     }
 
     // Daily limit is consumed only after a successful send.
@@ -112,6 +136,7 @@ export function App({ config, clientSlug }: { config: ReviewConfig; clientSlug: 
     setView('rating');
     setSelectedRating(null);
     setSubmitError(null);
+    setSuccessMessage(null);
   };
 
   return (
@@ -153,7 +178,7 @@ export function App({ config, clientSlug }: { config: ReviewConfig; clientSlug: 
           <PositiveFlow config={config} onBack={handleBackToRating} onCopyAndRedirect={handleCopyAndRedirect} />
         )}
 
-        {view === 'success' && <SuccessScreen companyName={config.companyName} />}
+        {view === 'success' && <SuccessScreen companyName={config.companyName} isDemoMode={isDemoMode} message={successMessage} />}
       </div>
     </div>
   );
